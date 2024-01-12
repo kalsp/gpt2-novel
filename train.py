@@ -5,9 +5,12 @@ import sentencepiece as spm
 
 model = GPT2LMHeadModel.from_pretrained("gpt2")
 # tokenizer = BertTokenizer.from_pretrained("bert-base-chinese")
-tokenizer = spm.SentencePieceProcessor()
-tokenizer.load(f"{configs.data.path}spiece.model")
-tokenizer.load_vocabulary(f"{configs.data.path}spiece.vocab",threshold=0)
+tokenizer = BertTokenizer.from_pretrained(f"{configs.data.path}spiece.vocab", encoding="utf-8")
+#tokenizer = spm.SentencePieceProcessor()
+#tokenizer.load(f"{configs.data.path}spiece.model")
+#tokenizer.load_vocabulary(f"{configs.data.path}spiece.vocab",threshold=0)
+
+model.resize_token_embeddings(len(tokenizer))
 
 
 dataset = TextDataset(
@@ -40,5 +43,5 @@ trainer = Trainer(
 
 trainer.train()
 
-trainer.save_model(f"{configs.data.model_path}")
+trainer.save_model(f"{configs.model_path}")
 

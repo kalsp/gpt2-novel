@@ -1,7 +1,7 @@
 import os
 
 path = './dataset'
-model_path = path + '/models/'
+model_path = path + '/model/'
 
 data = {
     'path': path + '/train/',
